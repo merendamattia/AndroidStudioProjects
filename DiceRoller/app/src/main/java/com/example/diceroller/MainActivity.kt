@@ -3,6 +3,7 @@ package com.example.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 
 /**
@@ -18,20 +19,30 @@ class MainActivity : AppCompatActivity() {
 
         // Quando viene cliccato il pulsante richiama la funzione rollDice()
         rollButton.setOnClickListener { rollDice() }
+
+        // Lo esegue la prima volta quando l'app viene aperta
+        rollDice()
     }
 
     private fun rollDice() {
         // Crea un nuovo oggetto di 6 facce
         val dice = Dice(6)
+        // Estrae un numero
         var diceRoll = dice.roll()
 
-        // Trascrive il risultato su schermo
-        val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = diceRoll.toString()
+        val diceImage: ImageView = findViewById(R.id.imageView)
 
-        diceRoll = dice.roll()
-        val resultTextView2: TextView = findViewById(R.id.textView2)
-        resultTextView2.text = diceRoll.toString()
+        // Imposta il valore uscito nella descrizione del content
+        diceImage.contentDescription = diceRoll.toString()
+
+        when(diceRoll){
+            1 -> diceImage.setImageResource(R.drawable.dice_1)
+            2 -> diceImage.setImageResource(R.drawable.dice_2)
+            3 -> diceImage.setImageResource(R.drawable.dice_3)
+            4 -> diceImage.setImageResource(R.drawable.dice_4)
+            5 -> diceImage.setImageResource(R.drawable.dice_5)
+            6 -> diceImage.setImageResource(R.drawable.dice_6)
+        }
     }
 
     /**
